@@ -1,0 +1,1920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResumeCraft Pro - Professional Resume Builder</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ===== CSS VARIABLES ===== */
+        :root {
+            --primary: #6C63FF;
+            --primary-dark: #5A52D5;
+            --primary-light: #8A78FF;
+            --secondary: #2A2A3C;
+            --secondary-light: #3A3A4C;
+            --accent: #FF6584;
+            --accent-light: #FF8FA3;
+            --success: #4CAF50;
+            --warning: #FF9800;
+            --info: #2196F3;
+            --dark: #1A1A2E;
+            --darker: #0F0F1B;
+            --light: #E2E2E2;
+            --gray: #8A8A9E;
+            --gray-light: #A5A5B5;
+            
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.4);
+            --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.5);
+            
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            --glass-bg: rgba(42, 42, 60, 0.25);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.36);
+            
+            --border-radius-sm: 8px;
+            --border-radius: 12px;
+            --border-radius-lg: 16px;
+            --border-radius-xl: 20px;
+            
+            --header-height: 80px;
+            --section-padding: 2rem;
+        }
+
+        /* ===== RESET & BASE STYLES ===== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 50%, #16213E 100%);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* ===== UTILITY CLASSES ===== */
+        .container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .container-sm {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+        }
+
+        .glass-heavy {
+            background: rgba(42, 42, 60, 0.4);
+            backdrop-filter: blur(20px) saturate(200%);
+            -webkit-backdrop-filter: blur(20px) saturate(200%);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: var(--glass-shadow);
+        }
+
+        .text-gradient {
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--gray);
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+
+        /* ===== BUTTON STYLES ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.9rem 1.8rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            text-decoration: none;
+            font-size: 0.95rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: var(--transition-slow);
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn--primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn--primary:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn--secondary {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn--secondary:hover {
+            background: rgba(108, 99, 255, 0.1);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn--accent {
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn--accent:hover {
+            background: linear-gradient(135deg, #E55A73, var(--accent));
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn--success {
+            background: linear-gradient(135deg, var(--success), #66BB6A);
+            color: white;
+        }
+
+        .btn--success:hover {
+            background: linear-gradient(135deg, #43A047, #5CB860);
+            transform: translateY(-2px);
+        }
+
+        .btn--icon {
+            padding: 0.75rem;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+        }
+
+        /* ===== HEADER & NAVIGATION ===== */
+        header {
+            background: rgba(26, 26, 46, 0.85);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            padding: 1rem 0;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--light);
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: var(--primary);
+            font-size: 2rem;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-list {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-link:hover,
+        .nav-link:focus {
+            color: var(--primary);
+        }
+
+        .nav-link.active {
+            color: var(--primary);
+        }
+
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: transparent;
+            border: none;
+            color: var(--light);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(108, 99, 255, 0.1) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--gray);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ===== BUILDER LAYOUT ===== */
+        .builder-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            padding: var(--section-padding) 0;
+            min-height: calc(100vh - var(--header-height));
+        }
+
+        .form-section {
+            background: var(--secondary);
+            border-radius: var(--border-radius-xl);
+            padding: 2rem;
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .preview-section {
+            background: white;
+            border-radius: var(--border-radius-xl);
+            padding: 2rem;
+            min-height: 800px;
+            box-shadow: var(--shadow-xl);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        /* ===== FORM STYLES ===== */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--light);
+        }
+
+        .form-input,
+        .form-textarea,
+        .form-select {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--light);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-input:focus,
+        .form-textarea:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        /* ===== SECTION HEADERS ===== */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid rgba(108, 99, 255, 0.3);
+        }
+
+        .section-header i {
+            color: var(--primary);
+            font-size: 1.25rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--light);
+            margin: 0;
+        }
+
+        /* ===== ADD/REMOVE BUTTONS ===== */
+        .add-btn,
+        .remove-btn {
+            background: transparent;
+            border: 1px dashed var(--primary);
+            color: var(--primary);
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .add-btn:hover {
+            background: rgba(108, 99, 255, 0.1);
+            border-style: solid;
+        }
+
+        .remove-btn {
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            margin-top: 0.5rem;
+        }
+
+        .remove-btn:hover {
+            background: rgba(255, 101, 132, 0.1);
+        }
+
+        /* ===== TEMPLATE GRID ===== */
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .template-card {
+            background: var(--secondary);
+            border-radius: var(--border-radius-lg);
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            box-shadow: var(--shadow-md);
+        }
+
+        .template-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .template-card.active {
+            border-color: var(--primary);
+            background: rgba(108, 99, 255, 0.1);
+        }
+
+        .template-preview {
+            background: white;
+            border-radius: var(--border-radius);
+            height: 200px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark);
+            font-weight: 600;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .template-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--light);
+        }
+
+        .template-description {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* ===== RESUME PREVIEW STYLES ===== */
+        .resume-preview {
+            background: white;
+            color: #333;
+            min-height: 800px;
+            padding: 2rem;
+            font-family: 'Inter', sans-serif;
+            box-shadow: var(--shadow-sm) inset;
+        }
+
+        .resume-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .resume-name {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .resume-title {
+            font-size: 1.25rem;
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        .resume-contact {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--gray);
+        }
+
+        .resume-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title-preview {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .experience-item,
+        .education-item {
+            margin-bottom: 1rem;
+        }
+
+        .job-title {
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 1.1rem;
+        }
+
+        .company-name {
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        .job-date {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin: 0.25rem 0;
+        }
+
+        .job-description {
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* ===== PAGE NAVIGATION ===== */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* ===== EXPORT CONTROLS ===== */
+        .export-controls {
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border-radius: var(--border-radius-lg);
+            background: var(--secondary-light);
+            box-shadow: var(--shadow-md);
+        }
+
+        .export-title {
+            margin-bottom: 1rem;
+            color: var(--light);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .export-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* ===== TOAST NOTIFICATIONS ===== */
+        .toast {
+            position: fixed;
+            top: 100px;
+            right: 2rem;
+            padding: 1rem 1.5rem;
+            border-radius: var(--border-radius);
+            background: var(--success);
+            color: white;
+            box-shadow: var(--shadow-lg);
+            z-index: 1000;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.error {
+            background: var(--accent);
+        }
+
+        /* ===== PARTICLES CONTAINER ===== */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--darker);
+            padding: 3rem 0 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: var(--light);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-section p {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--gray);
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 1200px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .builder-container {
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .builder-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-section {
+                position: static;
+            }
+            
+            .nav-list {
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-wrap: wrap;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-container {
+                position: fixed;
+                top: var(--header-height);
+                left: 0;
+                width: 100%;
+                background: var(--dark);
+                flex-direction: column;
+                padding: 2rem;
+                box-shadow: var(--shadow-lg);
+                transform: translateY(-100%);
+                opacity: 0;
+                transition: var(--transition);
+                z-index: 999;
+            }
+            
+            .nav-container.active {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            
+            .nav-list {
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+            }
+            
+            .user-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .hero-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .templates-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .resume-contact {
+                flex-direction: column;
+                gap: 0.5rem;
+                align-items: center;
+            }
+            
+            .export-actions {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .form-section,
+            .preview-section {
+                padding: 1.5rem;
+            }
+            
+            .btn {
+                padding: 0.75rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+
+    <header class="glass-heavy">
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">
+                    <i class="fas fa-file-alt"></i>
+                    <span>ResumeCraft Pro</span>
+                </a>
+                
+                <button class="mobile-menu-btn" id="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <div class="nav-container" id="nav-container">
+                    <nav aria-label="Main navigation">
+                        <ul class="nav-list">
+                            <li><a href="#" class="nav-link active" data-page="builder"><i class="fas fa-wrench"></i> Builder</a></li>
+                            <li><a href="#" class="nav-link" data-page="templates"><i class="fas fa-palette"></i> Templates</a></li>
+                            <li><a href="#" class="nav-link" data-page="examples"><i class="fas fa-eye"></i> Examples</a></li>
+                        </ul>
+                    </nav>
+                    
+                    <div class="user-actions">
+                        <button class="btn btn--secondary btn--icon" id="help-btn" aria-label="Help">
+                            <i class="fas fa-question"></i>
+                        </button>
+                        <button class="btn btn--primary" id="export-btn">
+                            <i class="fas fa-download"></i> Export Resume
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Builder Page -->
+    <section id="builder" class="page active">
+        <div class="container">
+            <div class="hero">
+                <div class="hero-content">
+                    <h1 class="hero-title text-gradient">Craft Your Perfect Resume</h1>
+                    <p class="hero-subtitle">Create a professional resume in minutes with our easy-to-use builder. Impress employers with a polished, ATS-friendly resume.</p>
+                    <div class="hero-actions">
+                        <button class="btn btn--primary" id="load-sample">
+                            <i class="fas fa-magic"></i> Load Sample
+                        </button>
+                        <button class="btn btn--secondary" id="clear-all">
+                            <i class="fas fa-trash"></i> Clear All
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="builder-container">
+                <!-- Left Side - Form -->
+                <div>
+                    <div class="form-section glass" id="resume-form">
+                        <!-- Form content will be generated by JavaScript -->
+                    </div>
+                    
+                    <div class="export-controls">
+                        <h3 class="export-title">Export Your Resume</h3>
+                        <div class="export-actions">
+                            <button class="btn btn--primary" id="export-pdf">
+                                <i class="fas fa-file-pdf"></i> Export PDF
+                            </button>
+                            <button class="btn btn--secondary" id="export-doc">
+                                <i class="fas fa-file-word"></i> Export DOC
+                            </button>
+                            <button class="btn btn--accent" id="print-resume">
+                                <i class="fas fa-print"></i> Print Resume
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side - Preview -->
+                <div>
+                    <div class="preview-section">
+                        <div class="resume-preview" id="resume-preview">
+                            <!-- Preview content will be generated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Templates Page -->
+    <section id="templates" class="page">
+        <div class="container-sm">
+            <div class="hero">
+                <h1 class="section-title text-gradient">Professional Templates</h1>
+                <p class="section-subtitle">Choose from our collection of professionally designed resume templates tailored for different industries and experience levels.</p>
+            </div>
+
+            <div class="templates-grid" id="templates-grid">
+                <!-- Templates will be generated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Examples Page -->
+    <section id="examples" class="page">
+        <div class="container-sm">
+            <div class="hero">
+                <h1 class="section-title text-gradient">Resume Examples</h1>
+                <p class="section-subtitle">Get inspired by real resume examples from professionals across various industries and career stages.</p>
+            </div>
+            <div style="text-align: center; padding: 2rem;">
+                <div class="glass" style="padding: 3rem; border-radius: var(--border-radius-xl);">
+                    <i class="fas fa-rocket" style="font-size: 3rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                    <h3 style="margin-bottom: 1rem; color: var(--light);">Examples Coming Soon</h3>
+                    <p style="color: var(--gray);">We're working on adding real-world resume examples to help you get started.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ResumeCraft Pro</h3>
+                    <p>Create professional resumes that get you noticed. Our easy-to-use builder helps you craft the perfect resume for your dream job.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" data-page="builder">Resume Builder</a></li>
+                        <li><a href="#" data-page="templates">Templates</a></li>
+                        <li><a href="#" data-page="examples">Examples</a></li>
+                        <li><a href="#">Help Center</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Resume Writing Tips</a></li>
+                        <li><a href="#">ATS Optimization</a></li>
+                        <li><a href="#">Cover Letter Templates</a></li>
+                        <li><a href="#">Career Advice</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 ResumeCraft Pro. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        // Enhanced Resume Generator Application
+        class ResumeGenerator {
+            constructor() {
+                this.resumeData = this.getDefaultData();
+                this.currentTemplate = 'modern';
+                this.init();
+            }
+
+            init() {
+                // Initialize particles
+                this.initParticles();
+                
+                // Set up event listeners
+                this.setupEventListeners();
+                
+                // Render initial content
+                this.renderForm();
+                this.renderPreview();
+                this.renderTemplates();
+                
+                console.log('Resume Generator initialized');
+            }
+
+            getDefaultData() {
+                return {
+                    personalInfo: {
+                        name: "",
+                        title: "",
+                        email: "",
+                        phone: "",
+                        location: "",
+                        summary: ""
+                    },
+                    experience: [],
+                    education: [],
+                    skills: []
+                };
+            }
+
+            getSampleData() {
+                return {
+                    personalInfo: {
+                        name: "Alexandra Chen",
+                        title: "Senior Product Designer",
+                        email: "alexandra.chen@example.com",
+                        phone: "+1 (555) 123-4567",
+                        location: "San Francisco, CA",
+                        summary: "Innovative Product Designer with 6+ years of experience creating user-centered digital products. Passionate about solving complex problems through elegant design solutions and data-driven decisions."
+                    },
+                    experience: [
+                        {
+                            company: "TechVision Inc.",
+                            position: "Senior Product Designer",
+                            startDate: "2020-03",
+                            endDate: "",
+                            current: true,
+                            description: "Lead design for core product features, resulting in 30% increase in user engagement. Collaborate with cross-functional teams to define product strategy and vision."
+                        },
+                        {
+                            company: "Digital Innovations LLC",
+                            position: "UI/UX Designer",
+                            startDate: "2018-06",
+                            endDate: "2020-02",
+                            current: false,
+                            description: "Designed and prototyped mobile and web applications for enterprise clients. Conducted user research and usability testing to inform design decisions."
+                        },
+                        {
+                            company: "Creative Studio",
+                            position: "Junior Designer",
+                            startDate: "2017-01",
+                            endDate: "2018-05",
+                            current: false,
+                            description: "Supported senior designers in creating visual assets and user interfaces. Participated in client meetings and design presentations."
+                        }
+                    ],
+                    education: [
+                        {
+                            institution: "Stanford University",
+                            degree: "Master of Fine Arts",
+                            field: "Design",
+                            startDate: "2015-09",
+                            endDate: "2017-05",
+                            gpa: "3.9"
+                        },
+                        {
+                            institution: "University of California, Berkeley",
+                            degree: "Bachelor of Arts",
+                            field: "Visual Arts",
+                            startDate: "2011-09",
+                            endDate: "2015-05",
+                            gpa: "3.7"
+                        }
+                    ],
+                    skills: ["Figma", "Sketch", "Adobe Creative Suite", "User Research", "Prototyping", "Design Systems", "HTML/CSS", "JavaScript", "UX Writing", "Accessibility"]
+                };
+            }
+
+            initParticles() {
+                if (typeof particlesJS !== 'undefined') {
+                    particlesJS('particles-js', {
+                        particles: {
+                            number: {
+                                value: 80,
+                                density: {
+                                    enable: true,
+                                    value_area: 800
+                                }
+                            },
+                            color: {
+                                value: "#6C63FF"
+                            },
+                            shape: {
+                                type: "circle",
+                                stroke: {
+                                    width: 0,
+                                    color: "#000000"
+                                }
+                            },
+                            opacity: {
+                                value: 0.5,
+                                random: true,
+                                anim: {
+                                    enable: true,
+                                    speed: 1,
+                                    opacity_min: 0.1,
+                                    sync: false
+                                }
+                            },
+                            size: {
+                                value: 3,
+                                random: true,
+                                anim: {
+                                    enable: true,
+                                    speed: 2,
+                                    size_min: 0.1,
+                                    sync: false
+                                }
+                            },
+                            line_linked: {
+                                enable: true,
+                                distance: 150,
+                                color: "#6C63FF",
+                                opacity: 0.2,
+                                width: 1
+                            },
+                            move: {
+                                enable: true,
+                                speed: 2,
+                                direction: "none",
+                                random: true,
+                                straight: false,
+                                out_mode: "out",
+                                bounce: false,
+                                attract: {
+                                    enable: false,
+                                    rotateX: 600,
+                                    rotateY: 1200
+                                }
+                            }
+                        },
+                        interactivity: {
+                            detect_on: "canvas",
+                            events: {
+                                onhover: {
+                                    enable: true,
+                                    mode: "grab"
+                                },
+                                onclick: {
+                                    enable: true,
+                                    mode: "push"
+                                },
+                                resize: true
+                            },
+                            modes: {
+                                grab: {
+                                    distance: 200,
+                                    line_linked: {
+                                        opacity: 0.3
+                                    }
+                                },
+                                bubble: {
+                                    distance: 400,
+                                    size: 40,
+                                    duration: 2,
+                                    opacity: 8,
+                                    speed: 3
+                                },
+                                repulse: {
+                                    distance: 200,
+                                    duration: 0.4
+                                },
+                                push: {
+                                    particles_nb: 4
+                                },
+                                remove: {
+                                    particles_nb: 2
+                                }
+                            }
+                        },
+                        retina_detect: true
+                    });
+                }
+            }
+
+            setupEventListeners() {
+                // Mobile menu toggle
+                document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+                    document.getElementById('nav-container').classList.toggle('active');
+                });
+
+                // Navigation
+                document.addEventListener('click', (e) => {
+                    if (e.target.matches('.nav-link') || e.target.closest('.nav-link')) {
+                        e.preventDefault();
+                        const link = e.target.matches('.nav-link') ? e.target : e.target.closest('.nav-link');
+                        this.handleNavigation(link);
+                    }
+                    
+                    // Footer navigation
+                    if (e.target.matches('.footer-links a')) {
+                        e.preventDefault();
+                        const page = e.target.getAttribute('data-page');
+                        if (page) {
+                            this.showPage(page);
+                        }
+                    }
+                });
+
+                // Close mobile menu when clicking outside
+                document.addEventListener('click', (e) => {
+                    const navContainer = document.getElementById('nav-container');
+                    const menuBtn = document.getElementById('mobile-menu-btn');
+                    
+                    if (navContainer.classList.contains('active') && 
+                        !navContainer.contains(e.target) && 
+                        !menuBtn.contains(e.target)) {
+                        navContainer.classList.remove('active');
+                    }
+                });
+
+                // Form actions
+                document.addEventListener('input', (e) => {
+                    if (e.target.matches('.form-input, .form-textarea')) {
+                        this.handleInputChange(e.target);
+                    }
+                });
+
+                document.addEventListener('change', (e) => {
+                    if (e.target.matches('.form-select, .form-checkbox')) {
+                        this.handleInputChange(e.target);
+                    }
+                });
+
+                // Buttons
+                document.getElementById('load-sample').addEventListener('click', () => this.loadSampleData());
+                document.getElementById('clear-all').addEventListener('click', () => this.clearAllData());
+                document.getElementById('export-pdf').addEventListener('click', () => this.exportToPDF());
+                document.getElementById('export-doc').addEventListener('click', () => this.exportToDOC());
+                document.getElementById('print-resume').addEventListener('click', () => this.printResume());
+                document.getElementById('help-btn').addEventListener('click', () => this.showHelp());
+
+                // Dynamic buttons
+                document.addEventListener('click', (e) => {
+                    if (e.target.matches('.add-btn')) {
+                        this.handleAddItem(e.target);
+                    }
+                    
+                    if (e.target.matches('.remove-btn')) {
+                        this.handleRemoveItem(e.target);
+                    }
+
+                    if (e.target.matches('.template-card') || e.target.closest('.template-card')) {
+                        const card = e.target.matches('.template-card') ? e.target : e.target.closest('.template-card');
+                        this.handleTemplateSelect(card);
+                    }
+                });
+            }
+
+            handleNavigation(link) {
+                // Close mobile menu
+                document.getElementById('nav-container').classList.remove('active');
+                
+                // Update active nav link
+                document.querySelectorAll('.nav-link').forEach(nav => nav.classList.remove('active'));
+                link.classList.add('active');
+
+                // Show selected page
+                const pageId = link.getAttribute('data-page');
+                this.showPage(pageId);
+            }
+
+            showPage(pageId) {
+                document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+                document.getElementById(pageId).classList.add('active');
+                
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            handleInputChange(input) {
+                const field = input.getAttribute('data-field');
+                const section = input.getAttribute('data-section');
+                const index = input.getAttribute('data-index');
+                const value = input.type === 'checkbox' ? input.checked : input.value;
+
+                this.updateResumeData(section, field, value, index);
+                this.renderPreview();
+            }
+
+            handleAddItem(button) {
+                const section = button.getAttribute('data-section');
+                this.addItem(section);
+                this.renderForm();
+                this.renderPreview();
+            }
+
+            handleRemoveItem(button) {
+                const section = button.getAttribute('data-section');
+                const index = parseInt(button.getAttribute('data-index'));
+                this.removeItem(section, index);
+                this.renderForm();
+                this.renderPreview();
+            }
+
+            handleTemplateSelect(templateCard) {
+                document.querySelectorAll('.template-card').forEach(card => card.classList.remove('active'));
+                templateCard.classList.add('active');
+                this.currentTemplate = templateCard.getAttribute('data-template');
+                this.showToast(`"${this.getTemplateName(this.currentTemplate)}" template selected!`);
+            }
+
+            getTemplateName(templateId) {
+                const templates = {
+                    'modern': 'Modern',
+                    'professional': 'Professional',
+                    'creative': 'Creative',
+                    'minimal': 'Minimal'
+                };
+                return templates[templateId] || templateId;
+            }
+
+            updateResumeData(section, field, value, index = null) {
+                if (index !== null) {
+                    this.resumeData[section][index][field] = value;
+                } else {
+                    this.resumeData[section][field] = value;
+                }
+            }
+
+            addItem(section) {
+                const newItem = section === 'experience' ? {
+                    company: '',
+                    position: '',
+                    startDate: '',
+                    endDate: '',
+                    description: '',
+                    current: false
+                } : {
+                    institution: '',
+                    degree: '',
+                    field: '',
+                    startDate: '',
+                    endDate: '',
+                    gpa: ''
+                };
+                
+                this.resumeData[section].push(newItem);
+            }
+
+            removeItem(section, index) {
+                this.resumeData[section].splice(index, 1);
+            }
+
+            renderForm() {
+                const formContainer = document.getElementById('resume-form');
+                formContainer.innerHTML = this.generateFormHTML();
+            }
+
+            generateFormHTML() {
+                return `
+                    <!-- Personal Information -->
+                    <div class="form-section-inner">
+                        <div class="section-header">
+                            <i class="fas fa-user"></i>
+                            <h2 class="section-title">Personal Information</h2>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" class="form-input" data-section="personalInfo" data-field="name" 
+                                   value="${this.resumeData.personalInfo.name}" placeholder="John Doe">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Job Title</label>
+                                <input type="text" class="form-input" data-section="personalInfo" data-field="title" 
+                                       value="${this.resumeData.personalInfo.title}" placeholder="Senior Developer">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Phone</label>
+                                <input type="tel" class="form-input" data-section="personalInfo" data-field="phone" 
+                                       value="${this.resumeData.personalInfo.phone}" placeholder="+1 (555) 123-4567">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-input" data-section="personalInfo" data-field="email" 
+                                   value="${this.resumeData.personalInfo.email}" placeholder="john.doe@example.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Location</label>
+                            <input type="text" class="form-input" data-section="personalInfo" data-field="location" 
+                                   value="${this.resumeData.personalInfo.location}" placeholder="San Francisco, CA">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Professional Summary</label>
+                            <textarea class="form-textarea" data-section="personalInfo" data-field="summary" 
+                                      placeholder="Brief summary about your professional background..." rows="4">${this.resumeData.personalInfo.summary}</textarea>
+                        </div>
+                    </div>
+
+                    <!-- Experience -->
+                    <div class="form-section-inner">
+                        <div class="section-header">
+                            <i class="fas fa-briefcase"></i>
+                            <h2 class="section-title">Work Experience</h2>
+                        </div>
+
+                        ${this.resumeData.experience.map((exp, index) => `
+                            <div class="experience-form glass" style="padding: 1.5rem; margin-bottom: 1rem; border-radius: var(--border-radius);">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label">Company</label>
+                                        <input type="text" class="form-input" data-section="experience" data-field="company" data-index="${index}"
+                                               value="${exp.company}" placeholder="Google">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Position</label>
+                                        <input type="text" class="form-input" data-section="experience" data-field="position" data-index="${index}"
+                                               value="${exp.position}" placeholder="Senior Software Engineer">
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label">Start Date</label>
+                                        <input type="month" class="form-input" data-section="experience" data-field="startDate" data-index="${index}"
+                                               value="${exp.startDate}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">End Date</label>
+                                        <input type="month" class="form-input" data-section="experience" data-field="endDate" data-index="${index}"
+                                               value="${exp.endDate}" ${exp.current ? 'disabled' : ''} placeholder="Present">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="checkbox-container">
+                                        <input type="checkbox" class="form-checkbox" data-section="experience" data-field="current" data-index="${index}" 
+                                               ${exp.current ? 'checked' : ''}>
+                                        Currently working here
+                                    </label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Description</label>
+                                    <textarea class="form-textarea" data-section="experience" data-field="description" data-index="${index}"
+                                              placeholder="Describe your responsibilities and achievements..." rows="3">${exp.description}</textarea>
+                                </div>
+
+                                <button class="remove-btn" data-section="experience" data-index="${index}">
+                                    <i class="fas fa-trash"></i>
+                                    Remove Experience
+                                </button>
+                            </div>
+                        `).join('')}
+
+                        <button class="add-btn" data-section="experience">
+                            <i class="fas fa-plus"></i>
+                            Add Experience
+                        </button>
+                    </div>
+
+                    <!-- Education -->
+                    <div class="form-section-inner">
+                        <div class="section-header">
+                            <i class="fas fa-graduation-cap"></i>
+                            <h2 class="section-title">Education</h2>
+                        </div>
+
+                        ${this.resumeData.education.map((edu, index) => `
+                            <div class="education-form glass" style="padding: 1.5rem; margin-bottom: 1rem; border-radius: var(--border-radius);">
+                                <div class="form-group">
+                                    <label class="form-label">Institution</label>
+                                    <input type="text" class="form-input" data-section="education" data-field="institution" data-index="${index}"
+                                           value="${edu.institution}" placeholder="Stanford University">
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label">Degree</label>
+                                        <input type="text" class="form-input" data-section="education" data-field="degree" data-index="${index}"
+                                               value="${edu.degree}" placeholder="Bachelor of Science">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Field of Study</label>
+                                        <input type="text" class="form-input" data-section="education" data-field="field" data-index="${index}"
+                                               value="${edu.field}" placeholder="Computer Science">
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label">Start Date</label>
+                                        <input type="month" class="form-input" data-section="education" data-field="startDate" data-index="${index}"
+                                               value="${edu.startDate}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">End Date</label>
+                                        <input type="month" class="form-input" data-section="education" data-field="endDate" data-index="${index}"
+                                               value="${edu.endDate}">
+                                    </div>
+                                </div>
+
+                                <button class="remove-btn" data-section="education" data-index="${index}">
+                                    <i class="fas fa-trash"></i>
+                                    Remove Education
+                                </button>
+                            </div>
+                        `).join('')}
+
+                        <button class="add-btn" data-section="education">
+                            <i class="fas fa-plus"></i>
+                            Add Education
+                        </button>
+                    </div>
+
+                    <!-- Skills -->
+                    <div class="form-section-inner">
+                        <div class="section-header">
+                            <i class="fas fa-tools"></i>
+                            <h2 class="section-title">Skills</h2>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Skills (comma separated)</label>
+                            <input type="text" class="form-input" data-section="skills" data-field="all" 
+                                   value="${this.resumeData.skills.join(', ')}" placeholder="JavaScript, React, Node.js, Python">
+                        </div>
+                    </div>
+                `;
+            }
+
+            renderPreview() {
+                const previewContainer = document.getElementById('resume-preview');
+                previewContainer.innerHTML = this.generatePreviewHTML();
+            }
+
+            generatePreviewHTML() {
+                const formatDate = (dateString) => {
+                    if (!dateString) return 'Present';
+                    const date = new Date(dateString);
+                    return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short' });
+                };
+
+                return `
+                    <!-- Header -->
+                    <div class="resume-header">
+                        <h1 class="resume-name">${this.resumeData.personalInfo.name || 'Your Name'}</h1>
+                        <div class="resume-title">${this.resumeData.personalInfo.title || 'Professional Title'}</div>
+                        <div class="resume-contact">
+                            ${this.resumeData.personalInfo.phone ? `
+                                <div class="contact-item">
+                                    <i class="fas fa-phone"></i>
+                                    <span>${this.resumeData.personalInfo.phone}</span>
+                                </div>
+                            ` : ''}
+                            ${this.resumeData.personalInfo.email ? `
+                                <div class="contact-item">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>${this.resumeData.personalInfo.email}</span>
+                                </div>
+                            ` : ''}
+                            ${this.resumeData.personalInfo.location ? `
+                                <div class="contact-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>${this.resumeData.personalInfo.location}</span>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+
+                    <!-- Summary -->
+                    ${this.resumeData.personalInfo.summary ? `
+                        <div class="resume-section">
+                            <h2 class="section-title-preview">Professional Summary</h2>
+                            <p>${this.resumeData.personalInfo.summary}</p>
+                        </div>
+                    ` : ''}
+
+                    <!-- Experience -->
+                    ${this.resumeData.experience.length > 0 ? `
+                        <div class="resume-section">
+                            <h2 class="section-title-preview">Work Experience</h2>
+                            ${this.resumeData.experience.map(exp => `
+                                <div class="experience-item">
+                                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                        <div>
+                                            <div class="job-title">${exp.position}</div>
+                                            <div class="company-name">${exp.company}</div>
+                                        </div>
+                                        <div class="job-date">
+                                            ${formatDate(exp.startDate)} - ${exp.current ? 'Present' : formatDate(exp.endDate)}
+                                        </div>
+                                    </div>
+                                    ${exp.description ? `<p class="job-description">${exp.description}</p>` : ''}
+                                </div>
+                            `).join('')}
+                        </div>
+                    ` : ''}
+
+                    <!-- Education -->
+                    ${this.resumeData.education.length > 0 ? `
+                        <div class="resume-section">
+                            <h2 class="section-title-preview">Education</h2>
+                            ${this.resumeData.education.map(edu => `
+                                <div class="education-item">
+                                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                        <div>
+                                            <div class="job-title">${edu.degree} in ${edu.field}</div>
+                                            <div class="company-name">${edu.institution}</div>
+                                        </div>
+                                        <div class="job-date">
+                                            ${formatDate(edu.startDate)} - ${formatDate(edu.endDate)}
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    ` : ''}
+
+                    <!-- Skills -->
+                    ${this.resumeData.skills.length > 0 ? `
+                        <div class="resume-section">
+                            <h2 class="section-title-preview">Skills</h2>
+                            <div class="skills-list">
+                                ${this.resumeData.skills.map(skill => `
+                                    <span class="skill-tag">${skill}</span>
+                                `).join('')}
+                            </div>
+                        </div>
+                    ` : ''}
+                `;
+            }
+
+            renderTemplates() {
+                const templatesContainer = document.getElementById('templates-grid');
+                const templates = [
+                    {
+                        id: "modern",
+                        name: "Modern",
+                        description: "Clean, professional design with emphasis on readability and modern aesthetics. Perfect for tech and creative industries.",
+                        tags: ["Professional", "Clean", "ATS Friendly"],
+                        preview: {
+                            background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                            color: "white",
+                            content: "Modern Layout"
+                        }
+                    },
+                    {
+                        id: "professional",
+                        name: "Professional",
+                        description: "Traditional resume format preferred by corporate employers and recruiters. Ideal for finance and business roles.",
+                        tags: ["Corporate", "Traditional", "Formal"],
+                        preview: {
+                            background: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
+                            color: "white",
+                            content: "Professional Layout"
+                        }
+                    },
+                    {
+                        id: "creative",
+                        name: "Creative",
+                        description: "Eye-catching design perfect for designers, marketers, and creative professionals. Showcases your visual flair.",
+                        tags: ["Creative", "Colorful", "Design"],
+                        preview: {
+                            background: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
+                            color: "white",
+                            content: "Creative Layout"
+                        }
+                    },
+                    {
+                        id: "minimal",
+                        name: "Minimal",
+                        description: "Simple and elegant design that focuses on content without distractions. Great for academic and research positions.",
+                        tags: ["Simple", "Elegant", "Minimalist"],
+                        preview: {
+                            background: "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)",
+                            color: "white",
+                            content: "Minimal Layout"
+                        }
+                    }
+                ];
+
+                templatesContainer.innerHTML = templates.map(template => `
+                    <div class="template-card glass" data-template="${template.id}">
+                        <div class="template-preview" style="background: ${template.preview.background}; color: ${template.preview.color}">
+                            ${template.preview.content}
+                        </div>
+                        <div class="template-name">${template.name}</div>
+                        <div class="template-description">${template.description}</div>
+                        <div style="margin-top: 1rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                            ${template.tags.map(tag => `
+                                <span style="background: rgba(108, 99, 255, 0.2); color: var(--primary); padding: 0.25rem 0.5rem; border-radius: 12px; font-size: 0.8rem;">
+                                    ${tag}
+                                </span>
+                            `).join('')}
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            loadSampleData() {
+                this.resumeData = this.getSampleData();
+                this.renderForm();
+                this.renderPreview();
+                this.showToast('Sample resume loaded successfully!', 'success');
+            }
+
+            clearAllData() {
+                this.resumeData = this.getDefaultData();
+                this.renderForm();
+                this.renderPreview();
+                this.showToast('All data cleared', 'info');
+            }
+
+            async exportToPDF() {
+                try {
+                    const element = document.getElementById('resume-preview');
+                    const canvas = await html2canvas(element, {
+                        scale: 2,
+                        useCORS: true,
+                        logging: false
+                    });
+
+                    const imgData = canvas.toDataURL('image/png');
+                    const pdf = new jsPDF.jsPDF('p', 'mm', 'a4');
+                    const imgWidth = 210;
+                    const pageHeight = 295;
+                    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                    let heightLeft = imgHeight;
+
+                    let position = 0;
+
+                    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+
+                    while (heightLeft >= 0) {
+                        position = heightLeft - imgHeight;
+                        pdf.addPage();
+                        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                        heightLeft -= pageHeight;
+                    }
+
+                    pdf.save(`${this.resumeData.personalInfo.name || 'resume'}.pdf`);
+                    this.showToast('Resume exported as PDF successfully!', 'success');
+                } catch (error) {
+                    console.error('PDF export error:', error);
+                    this.showToast('Failed to export PDF', 'error');
+                }
+            }
+
+            exportToDOC() {
+                // Simple DOC export - in a real app, you'd use a proper library
+                const content = this.generateDOCContent();
+                const blob = new Blob([content], { type: 'application/msword' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `${this.resumeData.personalInfo.name || 'resume'}.doc`;
+                link.click();
+                URL.revokeObjectURL(url);
+                this.showToast('Resume exported as DOC successfully!', 'success');
+            }
+
+            generateDOCContent() {
+                // Basic HTML content that Word can open
+                return `
+                    <html>
+                        <head>
+                            <meta charset="UTF-8">
+                            <title>${this.resumeData.personalInfo.name} - Resume</title>
+                            <style>
+                                body { font-family: Arial, sans-serif; margin: 40px; }
+                                h1 { color: #2c3e50; margin-bottom: 5px; }
+                                h2 { color: #6C63FF; border-bottom: 2px solid #6C63FF; padding-bottom: 5px; }
+                                .contact-info { margin-bottom: 20px; }
+                                .section { margin-bottom: 20px; }
+                            </style>
+                        </head>
+                        <body>
+                            <h1>${this.resumeData.personalInfo.name}</h1>
+                            <h2>${this.resumeData.personalInfo.title}</h2>
+                            
+                            <div class="contact-info">
+                                ${this.resumeData.personalInfo.phone ? `<p>Phone: ${this.resumeData.personalInfo.phone}</p>` : ''}
+                                ${this.resumeData.personalInfo.email ? `<p>Email: ${this.resumeData.personalInfo.email}</p>` : ''}
+                                ${this.resumeData.personalInfo.location ? `<p>Location: ${this.resumeData.personalInfo.location}</p>` : ''}
+                            </div>
+
+                            ${this.resumeData.personalInfo.summary ? `
+                                <div class="section">
+                                    <h2>Professional Summary</h2>
+                                    <p>${this.resumeData.personalInfo.summary}</p>
+                                </div>
+                            ` : ''}
+
+                            ${this.resumeData.experience.length > 0 ? `
+                                <div class="section">
+                                    <h2>Work Experience</h2>
+                                    ${this.resumeData.experience.map(exp => `
+                                        <div style="margin-bottom: 15px;">
+                                            <h3>${exp.position} at ${exp.company}</h3>
+                                            <p><strong>${this.formatDate(exp.startDate)} - ${exp.current ? 'Present' : this.formatDate(exp.endDate)}</strong></p>
+                                            <p>${exp.description}</p>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            ` : ''}
+
+                            ${this.resumeData.skills.length > 0 ? `
+                                <div class="section">
+                                    <h2>Skills</h2>
+                                    <p>${this.resumeData.skills.join(', ')}</p>
+                                </div>
+                            ` : ''}
+                        </body>
+                    </html>
+                `;
+            }
+
+            printResume() {
+                window.print();
+            }
+
+            showHelp() {
+                this.showToast('Need help? Check our documentation or contact support.', 'info');
+            }
+
+            showToast(message, type = 'success') {
+                // Remove existing toast
+                const existingToast = document.querySelector('.toast');
+                if (existingToast) {
+                    existingToast.remove();
+                }
+
+                // Create new toast
+                const toast = document.createElement('div');
+                toast.className = `toast ${type === 'error' ? 'error' : ''}`;
+                toast.innerHTML = `
+                    <i class="fas ${type === 'error' ? 'fa-exclamation-circle' : 'fa-check-circle'}"></i>
+                    <span>${message}</span>
+                `;
+
+                document.body.appendChild(toast);
+
+                // Show toast
+                setTimeout(() => toast.classList.add('show'), 100);
+
+                // Hide toast after 3 seconds
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    setTimeout(() => toast.remove(), 300);
+                }, 3000);
+            }
+
+            formatDate(dateString) {
+                if (!dateString) return 'Present';
+                const date = new Date(dateString);
+                return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short' });
+            }
+        }
+
+        // Initialize the application when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            window.resumeGenerator = new ResumeGenerator();
+        });
+    </script>
+</body>
+  </html>
