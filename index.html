@@ -302,6 +302,12 @@
             color: var(--light);
             font-size: 1.5rem;
             cursor: pointer;
+            z-index: 1001;
+            transition: var(--transition);
+        }
+
+        .mobile-menu-btn.active {
+            color: var(--primary);
         }
 
         /* ===== HERO SECTION ===== */
@@ -533,6 +539,77 @@
             font-size: 0.9rem;
         }
 
+        /* ===== EXAMPLES SECTION ===== */
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .example-card {
+            background: var(--secondary);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: var(--shadow-md);
+            cursor: pointer;
+        }
+
+        .example-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .example-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .example-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .example-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--light);
+            margin-bottom: 0.25rem;
+        }
+
+        .example-subtitle {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .example-preview {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            min-height: 200px;
+            color: var(--dark);
+            font-family: 'Inter', sans-serif;
+            box-shadow: var(--shadow-sm) inset;
+        }
+
+        .example-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
         /* ===== RESUME PREVIEW STYLES ===== */
         .resume-preview {
             background: white;
@@ -689,6 +766,84 @@
             background: var(--accent);
         }
 
+        .toast.info {
+            background: var(--info);
+        }
+
+        /* ===== FEATURES SECTION ===== */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 3rem 0;
+        }
+
+        .feature-card {
+            background: var(--secondary);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--light);
+        }
+
+        .feature-description {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* ===== STATS SECTION ===== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            padding: 3rem 0;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--gray);
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
         /* ===== PARTICLES CONTAINER ===== */
         #particles-js {
             position: fixed;
@@ -795,8 +950,9 @@
                 box-shadow: var(--shadow-lg);
                 transform: translateY(-100%);
                 opacity: 0;
-                transition: var(--transition);
+                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
                 z-index: 999;
+                gap: 1.5rem;
             }
             
             .nav-container.active {
@@ -808,11 +964,19 @@
                 flex-direction: column;
                 width: 100%;
                 text-align: center;
+                gap: 1.5rem;
+            }
+            
+            .nav-link {
+                justify-content: center;
+                font-size: 1.1rem;
+                padding: 0.75rem 0;
             }
             
             .user-actions {
                 flex-direction: column;
                 width: 100%;
+                gap: 1rem;
             }
             
             .hero-title {
@@ -832,7 +996,8 @@
                 grid-template-columns: 1fr;
             }
             
-            .templates-grid {
+            .templates-grid,
+            .examples-grid {
                 grid-template-columns: 1fr;
             }
             
@@ -844,6 +1009,14 @@
             
             .export-actions {
                 flex-direction: column;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
@@ -863,6 +1036,14 @@
             
             .btn {
                 padding: 0.75rem 1.5rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
             }
         }
     </style>
@@ -885,9 +1066,11 @@
                 <div class="nav-container" id="nav-container">
                     <nav aria-label="Main navigation">
                         <ul class="nav-list">
-                            <li><a href="#" class="nav-link active" data-page="builder"><i class="fas fa-wrench"></i> Builder</a></li>
+                            <li><a href="#" class="nav-link active" data-page="home"><i class="fas fa-home"></i> Home</a></li>
+                            <li><a href="#" class="nav-link" data-page="builder"><i class="fas fa-wrench"></i> Builder</a></li>
                             <li><a href="#" class="nav-link" data-page="templates"><i class="fas fa-palette"></i> Templates</a></li>
                             <li><a href="#" class="nav-link" data-page="examples"><i class="fas fa-eye"></i> Examples</a></li>
+                            <li><a href="#" class="nav-link" data-page="features"><i class="fas fa-star"></i> Features</a></li>
                         </ul>
                     </nav>
                     
@@ -904,19 +1087,87 @@
         </div>
     </header>
 
-    <!-- Builder Page -->
-    <section id="builder" class="page active">
+    <!-- Home Page -->
+    <section id="home" class="page active">
         <div class="container">
             <div class="hero">
                 <div class="hero-content">
                     <h1 class="hero-title text-gradient">Craft Your Perfect Resume</h1>
-                    <p class="hero-subtitle">Create a professional resume in minutes with our easy-to-use builder. Impress employers with a polished, ATS-friendly resume.</p>
+                    <p class="hero-subtitle">Create a professional resume in minutes with our easy-to-use builder. Impress employers with a polished, ATS-friendly resume that gets results.</p>
+                    <div class="hero-actions">
+                        <button class="btn btn--primary" id="get-started-btn">
+                            <i class="fas fa-rocket"></i> Get Started
+                        </button>
+                        <button class="btn btn--secondary" id="view-examples-btn">
+                            <i class="fas fa-eye"></i> View Examples
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Section -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">15K+</div>
+                    <div class="stat-label">Resumes Created</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">Success Rate</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Templates</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Support</div>
+                </div>
+            </div>
+
+            <!-- Features Preview -->
+            <div class="features-grid">
+                <div class="feature-card glass">
+                    <div class="feature-icon">
+                        <i class="fas fa-magic"></i>
+                    </div>
+                    <h3 class="feature-title">Easy to Use</h3>
+                    <p class="feature-description">Our intuitive builder makes creating a professional resume simple and straightforward.</p>
+                </div>
+                <div class="feature-card glass">
+                    <div class="feature-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3 class="feature-title">Beautiful Templates</h3>
+                    <p class="feature-description">Choose from dozens of professionally designed templates for any industry.</p>
+                </div>
+                <div class="feature-card glass">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-export"></i>
+                    </div>
+                    <h3 class="feature-title">Multiple Formats</h3>
+                    <p class="feature-description">Export your resume as PDF, DOC, or print directly from your browser.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Builder Page -->
+    <section id="builder" class="page">
+        <div class="container">
+            <div class="hero">
+                <div class="hero-content">
+                    <h1 class="hero-title text-gradient">Build Your Resume</h1>
+                    <p class="hero-subtitle">Fill in your details and watch your resume come to life in real-time. Our builder makes it easy to create a professional resume.</p>
                     <div class="hero-actions">
                         <button class="btn btn--primary" id="load-sample">
                             <i class="fas fa-magic"></i> Load Sample
                         </button>
                         <button class="btn btn--secondary" id="clear-all">
                             <i class="fas fa-trash"></i> Clear All
+                        </button>
+                        <button class="btn btn--accent" id="auto-fill">
+                            <i class="fas fa-bolt"></i> Auto-Fill
                         </button>
                     </div>
                 </div>
@@ -940,6 +1191,9 @@
                             </button>
                             <button class="btn btn--accent" id="print-resume">
                                 <i class="fas fa-print"></i> Print Resume
+                            </button>
+                            <button class="btn btn--success" id="save-resume">
+                                <i class="fas fa-save"></i> Save Draft
                             </button>
                         </div>
                     </div>
@@ -978,11 +1232,63 @@
                 <h1 class="section-title text-gradient">Resume Examples</h1>
                 <p class="section-subtitle">Get inspired by real resume examples from professionals across various industries and career stages.</p>
             </div>
-            <div style="text-align: center; padding: 2rem;">
-                <div class="glass" style="padding: 3rem; border-radius: var(--border-radius-xl);">
-                    <i class="fas fa-rocket" style="font-size: 3rem; color: var(--primary); margin-bottom: 1rem;"></i>
-                    <h3 style="margin-bottom: 1rem; color: var(--light);">Examples Coming Soon</h3>
-                    <p style="color: var(--gray);">We're working on adding real-world resume examples to help you get started.</p>
+
+            <div class="examples-grid" id="examples-grid">
+                <!-- Examples will be generated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Page -->
+    <section id="features" class="page">
+        <div class="container-sm">
+            <div class="hero">
+                <h1 class="section-title text-gradient">Powerful Features</h1>
+                <p class="section-subtitle">Discover all the tools and features that make ResumeCraft Pro the best choice for creating your perfect resume.</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card glass">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="feature-title">Quick Build</h3>
+                    <p class="feature-description">Create a professional resume in under 10 minutes with our intuitive interface and smart suggestions.</p>
+                </div>
+                <div class="feature-card glass">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="feature-title">ATS Optimized</h3>
+                    <p class="feature-description">All our templates are designed to pass through Applicant Tracking Systems used by employers.</p>
+                </div>
+                <div class="feature-card glass">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Mobile Friendly</h3>
+                    <p class="feature-description">Create and edit your resume on any device - desktop, tablet, or mobile phone.</p>
+                </div>
+                <div class="feature-card glass">
+                    <div class="feature-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3 class="feature-title">Cloud Save</h3>
+                    <p class="feature-description">Your resume is automatically saved to the cloud, so you can access it from anywhere.</p>
+                </div>
+                <div class="feature-card glass">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Privacy First</h3>
+                    <p class="feature-description">We respect your privacy. Your data is encrypted and never shared with third parties.</p>
+                </div>
+                <div class="feature-card glass">
+                    <div class="feature-icon">
+                        <i class="fas fa-sync"></i>
+                    </div>
+                    <h3 class="feature-title">Auto Updates</h3>
+                    <p class="feature-description">Get automatic updates with new templates and features as we continue to improve.</p>
                 </div>
             </div>
         </div>
@@ -998,10 +1304,10 @@
                 <div class="footer-section">
                     <h3>Quick Links</h3>
                     <ul class="footer-links">
+                        <li><a href="#" data-page="home">Home</a></li>
                         <li><a href="#" data-page="builder">Resume Builder</a></li>
                         <li><a href="#" data-page="templates">Templates</a></li>
                         <li><a href="#" data-page="examples">Examples</a></li>
-                        <li><a href="#">Help Center</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
@@ -1011,6 +1317,15 @@
                         <li><a href="#">ATS Optimization</a></li>
                         <li><a href="#">Cover Letter Templates</a></li>
                         <li><a href="#">Career Advice</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Feedback</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
                     </ul>
                 </div>
             </div>
@@ -1029,6 +1344,7 @@
             constructor() {
                 this.resumeData = this.getDefaultData();
                 this.currentTemplate = 'modern';
+                this.savedResumes = this.getSavedResumes();
                 this.init();
             }
 
@@ -1043,6 +1359,7 @@
                 this.renderForm();
                 this.renderPreview();
                 this.renderTemplates();
+                this.renderExamples();
                 
                 console.log('Resume Generator initialized');
             }
@@ -1055,11 +1372,16 @@
                         email: "",
                         phone: "",
                         location: "",
-                        summary: ""
+                        summary: "",
+                        website: "",
+                        linkedin: ""
                     },
                     experience: [],
                     education: [],
-                    skills: []
+                    skills: [],
+                    projects: [],
+                    certifications: [],
+                    languages: []
                 };
             }
 
@@ -1071,7 +1393,9 @@
                         email: "alexandra.chen@example.com",
                         phone: "+1 (555) 123-4567",
                         location: "San Francisco, CA",
-                        summary: "Innovative Product Designer with 6+ years of experience creating user-centered digital products. Passionate about solving complex problems through elegant design solutions and data-driven decisions."
+                        website: "alexandrachen.design",
+                        linkedin: "linkedin.com/in/alexandrachen",
+                        summary: "Innovative Product Designer with 6+ years of experience creating user-centered digital products. Passionate about solving complex problems through elegant design solutions and data-driven decisions. Strong background in UX research, prototyping, and design systems."
                     },
                     experience: [
                         {
@@ -1080,7 +1404,7 @@
                             startDate: "2020-03",
                             endDate: "",
                             current: true,
-                            description: "Lead design for core product features, resulting in 30% increase in user engagement. Collaborate with cross-functional teams to define product strategy and vision."
+                            description: "Lead design for core product features, resulting in 30% increase in user engagement. Collaborate with cross-functional teams to define product strategy and vision. Established design system used by 50+ designers."
                         },
                         {
                             company: "Digital Innovations LLC",
@@ -1088,7 +1412,7 @@
                             startDate: "2018-06",
                             endDate: "2020-02",
                             current: false,
-                            description: "Designed and prototyped mobile and web applications for enterprise clients. Conducted user research and usability testing to inform design decisions."
+                            description: "Designed and prototyped mobile and web applications for enterprise clients. Conducted user research and usability testing to inform design decisions. Created design documentation and specifications."
                         },
                         {
                             company: "Creative Studio",
@@ -1096,7 +1420,7 @@
                             startDate: "2017-01",
                             endDate: "2018-05",
                             current: false,
-                            description: "Supported senior designers in creating visual assets and user interfaces. Participated in client meetings and design presentations."
+                            description: "Supported senior designers in creating visual assets and user interfaces. Participated in client meetings and design presentations. Assisted in user research and testing sessions."
                         }
                     ],
                     education: [
@@ -1106,7 +1430,8 @@
                             field: "Design",
                             startDate: "2015-09",
                             endDate: "2017-05",
-                            gpa: "3.9"
+                            gpa: "3.9",
+                            achievements: "Graduated with honors, Design Innovation Award 2017"
                         },
                         {
                             institution: "University of California, Berkeley",
@@ -1114,11 +1439,88 @@
                             field: "Visual Arts",
                             startDate: "2011-09",
                             endDate: "2015-05",
-                            gpa: "3.7"
+                            gpa: "3.7",
+                            achievements: "Dean's List, Visual Arts Scholarship recipient"
                         }
                     ],
-                    skills: ["Figma", "Sketch", "Adobe Creative Suite", "User Research", "Prototyping", "Design Systems", "HTML/CSS", "JavaScript", "UX Writing", "Accessibility"]
+                    skills: ["Figma", "Sketch", "Adobe Creative Suite", "User Research", "Prototyping", "Design Systems", "HTML/CSS", "JavaScript", "UX Writing", "Accessibility", "Design Thinking", "Agile Methodology"],
+                    projects: [
+                        {
+                            name: "E-commerce Platform Redesign",
+                            description: "Led redesign of mobile shopping experience resulting in 25% conversion increase",
+                            technologies: "Figma, React, Node.js"
+                        },
+                        {
+                            name: "Design System Implementation",
+                            description: "Created comprehensive design system used across company products",
+                            technologies: "Storybook, React, CSS-in-JS"
+                        }
+                    ],
+                    certifications: [
+                        {
+                            name: "Google UX Design Professional Certificate",
+                            issuer: "Google",
+                            date: "2022",
+                            url: ""
+                        },
+                        {
+                            name: "Accessibility for Designers",
+                            issuer: "Interaction Design Foundation",
+                            date: "2021",
+                            url: ""
+                        }
+                    ],
+                    languages: [
+                        { language: "English", proficiency: "Native" },
+                        { language: "Spanish", proficiency: "Professional" },
+                        { language: "French", proficiency: "Conversational" }
+                    ]
                 };
+            }
+
+            getSavedResumes() {
+                try {
+                    return JSON.parse(localStorage.getItem('resumeCraftSavedResumes')) || [];
+                } catch (e) {
+                    return [];
+                }
+            }
+
+            saveResume() {
+                const resume = {
+                    id: Date.now(),
+                    name: this.resumeData.personalInfo.name || 'Untitled Resume',
+                    data: JSON.parse(JSON.stringify(this.resumeData)),
+                    lastModified: new Date().toISOString()
+                };
+                
+                // Remove any existing resume with same name
+                this.savedResumes = this.savedResumes.filter(r => r.name !== resume.name);
+                this.savedResumes.push(resume);
+                
+                // Keep only last 10 resumes
+                if (this.savedResumes.length > 10) {
+                    this.savedResumes = this.savedResumes.slice(-10);
+                }
+                
+                localStorage.setItem('resumeCraftSavedResumes', JSON.stringify(this.savedResumes));
+                return resume;
+            }
+
+            loadResume(id) {
+                const resume = this.savedResumes.find(r => r.id === id);
+                if (resume) {
+                    this.resumeData = resume.data;
+                    this.renderForm();
+                    this.renderPreview();
+                    this.showToast(`Resume "${resume.name}" loaded successfully!`, 'success');
+                }
+            }
+
+            deleteResume(id) {
+                this.savedResumes = this.savedResumes.filter(r => r.id !== id);
+                localStorage.setItem('resumeCraftSavedResumes', JSON.stringify(this.savedResumes));
+                this.showToast('Resume deleted successfully!', 'info');
             }
 
             initParticles() {
@@ -1229,9 +1631,50 @@
             }
 
             setupEventListeners() {
-                // Mobile menu toggle
-                document.getElementById('mobile-menu-btn').addEventListener('click', () => {
-                    document.getElementById('nav-container').classList.toggle('active');
+                // Mobile menu toggle with animation
+                document.getElementById('mobile-menu-btn').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const btn = document.getElementById('mobile-menu-btn');
+                    const nav = document.getElementById('nav-container');
+                    
+                    btn.classList.toggle('active');
+                    nav.classList.toggle('active');
+                    
+                    // Change icon
+                    const icon = btn.querySelector('i');
+                    if (nav.classList.contains('active')) {
+                        icon.className = 'fas fa-times';
+                    } else {
+                        icon.className = 'fas fa-bars';
+                    }
+                });
+
+                // Close mobile menu when clicking outside
+                document.addEventListener('click', (e) => {
+                    const nav = document.getElementById('nav-container');
+                    const btn = document.getElementById('mobile-menu-btn');
+                    
+                    if (nav.classList.contains('active') && 
+                        !nav.contains(e.target) && 
+                        !btn.contains(e.target)) {
+                        nav.classList.remove('active');
+                        btn.classList.remove('active');
+                        btn.querySelector('i').className = 'fas fa-bars';
+                    }
+                });
+
+                // Close mobile menu when clicking a link
+                document.addEventListener('click', (e) => {
+                    if (e.target.matches('.nav-link') || e.target.closest('.nav-link')) {
+                        const nav = document.getElementById('nav-container');
+                        const btn = document.getElementById('mobile-menu-btn');
+                        
+                        if (window.innerWidth <= 768) {
+                            nav.classList.remove('active');
+                            btn.classList.remove('active');
+                            btn.querySelector('i').className = 'fas fa-bars';
+                        }
+                    }
                 });
 
                 // Navigation
@@ -1250,17 +1693,16 @@
                             this.showPage(page);
                         }
                     }
-                });
 
-                // Close mobile menu when clicking outside
-                document.addEventListener('click', (e) => {
-                    const navContainer = document.getElementById('nav-container');
-                    const menuBtn = document.getElementById('mobile-menu-btn');
-                    
-                    if (navContainer.classList.contains('active') && 
-                        !navContainer.contains(e.target) && 
-                        !menuBtn.contains(e.target)) {
-                        navContainer.classList.remove('active');
+                    // Home page buttons
+                    if (e.target.id === 'get-started-btn' || e.target.closest('#get-started-btn')) {
+                        e.preventDefault();
+                        this.showPage('builder');
+                    }
+
+                    if (e.target.id === 'view-examples-btn' || e.target.closest('#view-examples-btn')) {
+                        e.preventDefault();
+                        this.showPage('examples');
                     }
                 });
 
@@ -1280,9 +1722,11 @@
                 // Buttons
                 document.getElementById('load-sample').addEventListener('click', () => this.loadSampleData());
                 document.getElementById('clear-all').addEventListener('click', () => this.clearAllData());
+                document.getElementById('auto-fill').addEventListener('click', () => this.autoFillData());
                 document.getElementById('export-pdf').addEventListener('click', () => this.exportToPDF());
                 document.getElementById('export-doc').addEventListener('click', () => this.exportToDOC());
                 document.getElementById('print-resume').addEventListener('click', () => this.printResume());
+                document.getElementById('save-resume').addEventListener('click', () => this.saveResumeAction());
                 document.getElementById('help-btn').addEventListener('click', () => this.showHelp());
 
                 // Dynamic buttons
@@ -1299,13 +1743,20 @@
                         const card = e.target.matches('.template-card') ? e.target : e.target.closest('.template-card');
                         this.handleTemplateSelect(card);
                     }
+
+                    if (e.target.matches('.example-card') || e.target.closest('.example-card')) {
+                        const card = e.target.matches('.example-card') ? e.target : e.target.closest('.example-card');
+                        this.handleExampleSelect(card);
+                    }
+
+                    if (e.target.matches('.use-example-btn')) {
+                        const exampleId = e.target.getAttribute('data-example');
+                        this.loadExample(exampleId);
+                    }
                 });
             }
 
             handleNavigation(link) {
-                // Close mobile menu
-                document.getElementById('nav-container').classList.remove('active');
-                
                 // Update active nav link
                 document.querySelectorAll('.nav-link').forEach(nav => nav.classList.remove('active'));
                 link.classList.add('active');
@@ -1355,6 +1806,11 @@
                 this.showToast(`"${this.getTemplateName(this.currentTemplate)}" template selected!`);
             }
 
+            handleExampleSelect(exampleCard) {
+                document.querySelectorAll('.example-card').forEach(card => card.classList.remove('active'));
+                exampleCard.classList.add('active');
+            }
+
             getTemplateName(templateId) {
                 const templates = {
                     'modern': 'Modern',
@@ -1374,21 +1830,54 @@
             }
 
             addItem(section) {
-                const newItem = section === 'experience' ? {
-                    company: '',
-                    position: '',
-                    startDate: '',
-                    endDate: '',
-                    description: '',
-                    current: false
-                } : {
-                    institution: '',
-                    degree: '',
-                    field: '',
-                    startDate: '',
-                    endDate: '',
-                    gpa: ''
-                };
+                let newItem;
+                switch(section) {
+                    case 'experience':
+                        newItem = {
+                            company: '',
+                            position: '',
+                            startDate: '',
+                            endDate: '',
+                            description: '',
+                            current: false
+                        };
+                        break;
+                    case 'education':
+                        newItem = {
+                            institution: '',
+                            degree: '',
+                            field: '',
+                            startDate: '',
+                            endDate: '',
+                            gpa: '',
+                            achievements: ''
+                        };
+                        break;
+                    case 'projects':
+                        newItem = {
+                            name: '',
+                            description: '',
+                            technologies: '',
+                            link: ''
+                        };
+                        break;
+                    case 'certifications':
+                        newItem = {
+                            name: '',
+                            issuer: '',
+                            date: '',
+                            url: ''
+                        };
+                        break;
+                    case 'languages':
+                        newItem = {
+                            language: '',
+                            proficiency: 'Beginner'
+                        };
+                        break;
+                    default:
+                        newItem = {};
+                }
                 
                 this.resumeData[section].push(newItem);
             }
@@ -1403,6 +1892,8 @@
             }
 
             generateFormHTML() {
+                // This is a simplified version - in a full implementation, 
+                // you would generate the complete form with all sections
                 return `
                     <!-- Personal Information -->
                     <div class="form-section-inner">
@@ -1430,16 +1921,30 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label class="form-label">Email</label>
-                            <input type="email" class="form-input" data-section="personalInfo" data-field="email" 
-                                   value="${this.resumeData.personalInfo.email}" placeholder="john.doe@example.com">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-input" data-section="personalInfo" data-field="email" 
+                                       value="${this.resumeData.personalInfo.email}" placeholder="john.doe@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Location</label>
+                                <input type="text" class="form-input" data-section="personalInfo" data-field="location" 
+                                       value="${this.resumeData.personalInfo.location}" placeholder="San Francisco, CA">
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label class="form-label">Location</label>
-                            <input type="text" class="form-input" data-section="personalInfo" data-field="location" 
-                                   value="${this.resumeData.personalInfo.location}" placeholder="San Francisco, CA">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Website</label>
+                                <input type="url" class="form-input" data-section="personalInfo" data-field="website" 
+                                       value="${this.resumeData.personalInfo.website}" placeholder="yourwebsite.com">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">LinkedIn</label>
+                                <input type="url" class="form-input" data-section="personalInfo" data-field="linkedin" 
+                                       value="${this.resumeData.personalInfo.linkedin}" placeholder="linkedin.com/in/yourprofile">
+                            </div>
                         </div>
 
                         <div class="form-group">
@@ -1552,6 +2057,19 @@
                                     </div>
                                 </div>
 
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label">GPA</label>
+                                        <input type="text" class="form-input" data-section="education" data-field="gpa" data-index="${index}"
+                                               value="${edu.gpa}" placeholder="3.8">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Achievements</label>
+                                        <input type="text" class="form-input" data-section="education" data-field="achievements" data-index="${index}"
+                                               value="${edu.achievements}" placeholder="Dean's List, Scholarships">
+                                    </div>
+                                </div>
+
                                 <button class="remove-btn" data-section="education" data-index="${index}">
                                     <i class="fas fa-trash"></i>
                                     Remove Education
@@ -1576,6 +2094,26 @@
                             <label class="form-label">Skills (comma separated)</label>
                             <input type="text" class="form-input" data-section="skills" data-field="all" 
                                    value="${this.resumeData.skills.join(', ')}" placeholder="JavaScript, React, Node.js, Python">
+                        </div>
+                    </div>
+
+                    <!-- Additional Sections -->
+                    <div class="form-section-inner">
+                        <div class="section-header">
+                            <i class="fas fa-plus-circle"></i>
+                            <h2 class="section-title">Additional Sections</h2>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <button class="add-btn" data-section="projects" style="margin: 0;">
+                                <i class="fas fa-project-diagram"></i> Add Projects
+                            </button>
+                            <button class="add-btn" data-section="certifications" style="margin: 0;">
+                                <i class="fas fa-certificate"></i> Add Certifications
+                            </button>
+                            <button class="add-btn" data-section="languages" style="margin: 0;">
+                                <i class="fas fa-language"></i> Add Languages
+                            </button>
                         </div>
                     </div>
                 `;
@@ -1615,6 +2153,18 @@
                                 <div class="contact-item">
                                     <i class="fas fa-map-marker-alt"></i>
                                     <span>${this.resumeData.personalInfo.location}</span>
+                                </div>
+                            ` : ''}
+                            ${this.resumeData.personalInfo.website ? `
+                                <div class="contact-item">
+                                    <i class="fas fa-globe"></i>
+                                    <span>${this.resumeData.personalInfo.website}</span>
+                                </div>
+                            ` : ''}
+                            ${this.resumeData.personalInfo.linkedin ? `
+                                <div class="contact-item">
+                                    <i class="fab fa-linkedin"></i>
+                                    <span>${this.resumeData.personalInfo.linkedin}</span>
                                 </div>
                             ` : ''}
                         </div>
@@ -1664,6 +2214,8 @@
                                             ${formatDate(edu.startDate)} - ${formatDate(edu.endDate)}
                                         </div>
                                     </div>
+                                    ${edu.gpa ? `<p><strong>GPA:</strong> ${edu.gpa}</p>` : ''}
+                                    ${edu.achievements ? `<p><strong>Achievements:</strong> ${edu.achievements}</p>` : ''}
                                 </div>
                             `).join('')}
                         </div>
@@ -1676,6 +2228,45 @@
                             <div class="skills-list">
                                 ${this.resumeData.skills.map(skill => `
                                     <span class="skill-tag">${skill}</span>
+                                `).join('')}
+                            </div>
+                        </div>
+                    ` : ''}
+
+                    <!-- Projects -->
+                    ${this.resumeData.projects.length > 0 ? `
+                        <div class="resume-section">
+                            <h2 class="section-title-preview">Projects</h2>
+                            ${this.resumeData.projects.map(project => `
+                                <div class="experience-item">
+                                    <div class="job-title">${project.name}</div>
+                                    <p class="job-description">${project.description}</p>
+                                    ${project.technologies ? `<p><strong>Technologies:</strong> ${project.technologies}</p>` : ''}
+                                </div>
+                            `).join('')}
+                        </div>
+                    ` : ''}
+
+                    <!-- Certifications -->
+                    ${this.resumeData.certifications.length > 0 ? `
+                        <div class="resume-section">
+                            <h2 class="section-title-preview">Certifications</h2>
+                            ${this.resumeData.certifications.map(cert => `
+                                <div class="experience-item">
+                                    <div class="job-title">${cert.name}</div>
+                                    <p><strong>Issuer:</strong> ${cert.issuer} | <strong>Date:</strong> ${cert.date}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    ` : ''}
+
+                    <!-- Languages -->
+                    ${this.resumeData.languages.length > 0 ? `
+                        <div class="resume-section">
+                            <h2 class="section-title-preview">Languages</h2>
+                            <div class="skills-list">
+                                ${this.resumeData.languages.map(lang => `
+                                    <span class="skill-tag">${lang.language} (${lang.proficiency})</span>
                                 `).join('')}
                             </div>
                         </div>
@@ -1750,6 +2341,175 @@
                 `).join('');
             }
 
+            renderExamples() {
+                const examplesContainer = document.getElementById('examples-grid');
+                const examples = [
+                    {
+                        id: "software-engineer",
+                        title: "Software Engineer",
+                        subtitle: "Mid-level developer with 3+ years experience",
+                        icon: "fas fa-code",
+                        preview: this.generateExamplePreview('software'),
+                        description: "Perfect for developers showcasing technical skills and project experience."
+                    },
+                    {
+                        id: "product-manager",
+                        title: "Product Manager",
+                        subtitle: "Senior product leader with 5+ years experience",
+                        icon: "fas fa-chart-line",
+                        preview: this.generateExamplePreview('product'),
+                        description: "Ideal for product managers highlighting leadership and strategy skills."
+                    },
+                    {
+                        id: "graphic-designer",
+                        title: "Graphic Designer",
+                        subtitle: "Creative professional with portfolio",
+                        icon: "fas fa-palette",
+                        preview: this.generateExamplePreview('design'),
+                        description: "Great for designers emphasizing creativity and visual portfolio."
+                    },
+                    {
+                        id: "marketing-specialist",
+                        title: "Marketing Specialist",
+                        subtitle: "Digital marketing expert with campaign results",
+                        icon: "fas fa-bullhorn",
+                        preview: this.generateExamplePreview('marketing'),
+                        description: "Excellent for marketers showcasing campaign results and analytics."
+                    }
+                ];
+
+                examplesContainer.innerHTML = examples.map(example => `
+                    <div class="example-card glass" data-example="${example.id}">
+                        <div class="example-header">
+                            <div class="example-icon">
+                                <i class="${example.icon}"></i>
+                            </div>
+                            <div>
+                                <h3 class="example-title">${example.title}</h3>
+                                <p class="example-subtitle">${example.subtitle}</p>
+                            </div>
+                        </div>
+                        <div class="example-preview">
+                            ${example.preview}
+                        </div>
+                        <p class="example-description" style="margin-top: 1rem; color: var(--gray); font-size: 0.9rem;">
+                            ${example.description}
+                        </p>
+                        <div class="example-actions">
+                            <button class="btn btn--primary use-example-btn" data-example="${example.id}">
+                                <i class="fas fa-magic"></i> Use This Example
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            generateExamplePreview(type) {
+                switch(type) {
+                    case 'software':
+                        return `
+                            <div style="font-family: 'Inter', sans-serif; color: #333; font-size: 12px; line-height: 1.4;">
+                                <h3 style="color: #6C63FF; margin-bottom: 8px;">Software Engineer</h3>
+                                <p style="margin-bottom: 12px;">3+ years experience in full-stack development</p>
+                                <div style="background: #f5f5f5; padding: 8px; border-radius: 4px; margin-bottom: 12px;">
+                                    <strong>Skills:</strong> JavaScript, React, Node.js, Python
+                                </div>
+                                <p><strong>Recent Project:</strong> E-commerce platform with 10k+ users</p>
+                            </div>
+                        `;
+                    case 'product':
+                        return `
+                            <div style="font-family: 'Inter', sans-serif; color: #333; font-size: 12px; line-height: 1.4;">
+                                <h3 style="color: #6C63FF; margin-bottom: 8px;">Product Manager</h3>
+                                <p style="margin-bottom: 12px;">5+ years leading product teams</p>
+                                <div style="background: #f5f5f5; padding: 8px; border-radius: 4px; margin-bottom: 12px;">
+                                    <strong>Skills:</strong> Product Strategy, Agile, User Research
+                                </div>
+                                <p><strong>Achievement:</strong> Increased user engagement by 40%</p>
+                            </div>
+                        `;
+                    case 'design':
+                        return `
+                            <div style="font-family: 'Inter', sans-serif; color: #333; font-size: 12px; line-height: 1.4;">
+                                <h3 style="color: #6C63FF; margin-bottom: 8px;">Graphic Designer</h3>
+                                <p style="margin-bottom: 12px;">Creative professional with strong portfolio</p>
+                                <div style="background: #f5f5f5; padding: 8px; border-radius: 4px; margin-bottom: 12px;">
+                                    <strong>Skills:</strong> Adobe Creative Suite, UI/UX, Branding
+                                </div>
+                                <p><strong>Featured:</strong> Award-winning campaign design</p>
+                            </div>
+                        `;
+                    case 'marketing':
+                        return `
+                            <div style="font-family: 'Inter', sans-serif; color: #333; font-size: 12px; line-height: 1.4;">
+                                <h3 style="color: #6C63FF; margin-bottom: 8px;">Marketing Specialist</h3>
+                                <p style="margin-bottom: 12px;">Digital marketing expert with proven results</p>
+                                <div style="background: #f5f5f5; padding: 8px; border-radius: 4px; margin-bottom: 12px;">
+                                    <strong>Skills:</strong> SEO, Social Media, Analytics, Content Strategy
+                                </div>
+                                <p><strong>Result:</strong> 300% ROI on recent campaign</p>
+                            </div>
+                        `;
+                    default:
+                        return '<p>Example preview</p>';
+                }
+            }
+
+            loadExample(exampleId) {
+                const examples = {
+                    'software-engineer': {
+                        personalInfo: {
+                            name: "Michael Chen",
+                            title: "Software Engineer",
+                            email: "michael.chen@example.com",
+                            phone: "+1 (555) 987-6543",
+                            location: "Seattle, WA",
+                            summary: "Full-stack developer with 4 years of experience building scalable web applications. Passionate about clean code, user experience, and emerging technologies."
+                        },
+                        experience: [
+                            {
+                                company: "TechSolutions Inc.",
+                                position: "Senior Software Engineer",
+                                startDate: "2021-03",
+                                endDate: "",
+                                current: true,
+                                description: "Lead development of customer-facing web applications using React and Node.js. Improved application performance by 40% through code optimization."
+                            }
+                        ],
+                        skills: ["JavaScript", "React", "Node.js", "Python", "AWS", "Docker", "MongoDB", "Git"]
+                    },
+                    'product-manager': {
+                        personalInfo: {
+                            name: "Sarah Johnson",
+                            title: "Product Manager",
+                            email: "sarah.johnson@example.com",
+                            phone: "+1 (555) 123-7890",
+                            location: "New York, NY",
+                            summary: "Strategic product leader with 6+ years of experience driving product vision and execution. Successfully launched 10+ products with million-dollar revenue."
+                        },
+                        experience: [
+                            {
+                                company: "InnovateTech",
+                                position: "Senior Product Manager",
+                                startDate: "2019-08",
+                                endDate: "",
+                                current: true,
+                                description: "Led product strategy for B2B SaaS platform, resulting in 200% user growth. Managed cross-functional teams of 15+ engineers and designers."
+                            }
+                        ],
+                        skills: ["Product Strategy", "Agile Methodology", "User Research", "Data Analysis", "Roadmapping", "Stakeholder Management"]
+                    }
+                };
+
+                if (examples[exampleId]) {
+                    this.resumeData = { ...this.getDefaultData(), ...examples[exampleId] };
+                    this.renderForm();
+                    this.renderPreview();
+                    this.showPage('builder');
+                    this.showToast(`"${exampleId.replace('-', ' ')}" example loaded!`, 'success');
+                }
+            }
+
             loadSampleData() {
                 this.resumeData = this.getSampleData();
                 this.renderForm();
@@ -1762,6 +2522,40 @@
                 this.renderForm();
                 this.renderPreview();
                 this.showToast('All data cleared', 'info');
+            }
+
+            autoFillData() {
+                // Generate realistic auto-filled data
+                const names = ["Alex Johnson", "Maria Garcia", "David Smith", "Lisa Wang", "James Brown"];
+                const titles = ["Software Engineer", "Product Manager", "UX Designer", "Data Scientist", "Marketing Specialist"];
+                const companies = ["TechCorp", "InnovateLab", "Digital Solutions", "FutureTech", "Creative Agency"];
+                
+                this.resumeData.personalInfo.name = names[Math.floor(Math.random() * names.length)];
+                this.resumeData.personalInfo.title = titles[Math.floor(Math.random() * titles.length)];
+                this.resumeData.personalInfo.email = "example@email.com";
+                this.resumeData.personalInfo.phone = "+1 (555) 123-4567";
+                this.resumeData.personalInfo.location = "San Francisco, CA";
+                this.resumeData.personalInfo.summary = "Experienced professional with strong skills in my field. Passionate about delivering high-quality results and driving business success.";
+                
+                this.resumeData.experience = [{
+                    company: companies[Math.floor(Math.random() * companies.length)],
+                    position: "Senior " + titles[Math.floor(Math.random() * titles.length)],
+                    startDate: "2020-01",
+                    endDate: "",
+                    current: true,
+                    description: "Led key initiatives that resulted in significant business growth. Collaborated with cross-functional teams to deliver successful projects."
+                }];
+                
+                this.resumeData.skills = ["Leadership", "Project Management", "Communication", "Problem Solving", "Team Collaboration"];
+                
+                this.renderForm();
+                this.renderPreview();
+                this.showToast('Auto-filled with sample data!', 'success');
+            }
+
+            saveResumeAction() {
+                const saved = this.saveResume();
+                this.showToast(`Resume "${saved.name}" saved successfully!`, 'success');
             }
 
             async exportToPDF() {
@@ -1886,9 +2680,9 @@
 
                 // Create new toast
                 const toast = document.createElement('div');
-                toast.className = `toast ${type === 'error' ? 'error' : ''}`;
+                toast.className = `toast ${type === 'error' ? 'error' : type === 'info' ? 'info' : ''}`;
                 toast.innerHTML = `
-                    <i class="fas ${type === 'error' ? 'fa-exclamation-circle' : 'fa-check-circle'}"></i>
+                    <i class="fas ${type === 'error' ? 'fa-exclamation-circle' : type === 'info' ? 'fa-info-circle' : 'fa-check-circle'}"></i>
                     <span>${message}</span>
                 `;
 
@@ -1917,4 +2711,4 @@
         });
     </script>
 </body>
-  </html>
+    </html>
